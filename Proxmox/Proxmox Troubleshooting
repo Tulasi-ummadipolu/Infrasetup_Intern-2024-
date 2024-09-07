@@ -1,0 +1,39 @@
+/***********TROUBLESHOOTING ISSUE 1 ********************/
+/***********GRUB (BOOT LOADER) GOT STUCKED *************/
+Can not able to reinstall proxmox and proceed to the screen having steps of proxmox installation steps.
+Resolution steps: Logged into GUI Proxmox interface, select zfs disks in disks category, cleared one of the disk (wipped off all data)
+
+/***********TROUBLESHOOTING ISSUE 2*********************/
+/***********RPOOL IS NOT IMPORTING AUTOMATICALLY TO LAUNCH PROXMOX CLI AND GUI IS NOT ACCESSING DIRECTLY WITHOUT PROXMOX CLI LOGIN**************/
+For manual import:
+if “can’t import rpool”error encountered, use below commands
+zpool import (indentify the rpool id)
+zpool import -f pool_id
+exit
+promox installs and cli screen opens
+login with credentials
+at the top we can get port address for Proxmox GUI (port :8006 important)
+For automatic import : Resolution:
+Cleared all partitions data for the harddisks and reinstalled proxmox
+data in server is deleted using "Gparted" software
+Steps:- 
+software link : https://gparted.org/download.php
+Download Gparted software and flash into flash drive
+Connect with the server, do F11(boot manager) with USB 
+Select default method and then “Don’t touch keymap”
+Select language (English) option 33, and “Continue to start X to use Gparted automatically(0)” option 
+Gparted with be open, delete all partitions and clear the data. Exit and then reboot
+Now insert flash drive containing Proxmox, click on F11 (boot manager)
+Continue with installing proxmox steps
+
+
+/**************TROUBLESHOOTING ISSUE 3*************************/
+/**************GUI ACCESS ISSUE FOR PROXMOX********************/
+Unable to access GUI, even after launching the proxmox cli
+steps of resolution:
+After launching proxmox cli, login with root credentials
+enter command “nano /etc/networks/interfaces”
+there is an extra line in the file with path mentioned at last line of file, remove that unnecessary /* line 
+save changes and exit 
+reboot the system
+Now access the gui with port :8006 
